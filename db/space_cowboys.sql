@@ -1,4 +1,4 @@
-
+DROP TABLE bounty_hunters;
 
 CREATE TABLE bounty_hunters (
 

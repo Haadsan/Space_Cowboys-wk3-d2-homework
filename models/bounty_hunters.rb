@@ -24,9 +24,9 @@ def save()
   db.close()
   @id = result[0]["id"].to_i
 end
-
-
-
+#
+#
+#
 def update()
   db = PG.connect({dbname: "space_cowboys", host: "localhost"})
   sql = "UPDATE bounty_hunters SET (first_name, last_name, species, homeworld, cashed_in) = ($1, $2, $3, $4, $5) WHERE id = $6"
@@ -35,14 +35,14 @@ def update()
  db.exec_prepared("update", values)
  db close()
 end
-
+#
 def self.all()
   db = PG.connect({dbname: "space_cowboys", host: "localhost"})
   sql = "SELECT * FROM bounty_hunters"
   db.prepare("all", sql)
   hunters = db.exec_prepared("all")
   db.close()
-  return hunters.map {|hunters_hash|BountyHunters.(hunters_hash)}
+  return hunters.map {|hunters_hash| BountyHunters.new(hunters_hash)}
 end
 
 
@@ -80,7 +80,7 @@ def self.find_by_name(first_name)
 
   def self.find_by_id(id)
       db = PG.connect(:dbname => 'space_cowboys', :host => 'localhost')
-      sql = "SELECT * from bounty_hunters WHERE first_name = $1;"
+      sql = "SELECT * from bounty_hunters WHERE id = $1;"
       values = [id]
       db.prepare("find_by_id", sql)
       result = db.exec_prepared("find_by_id", values)[0]
